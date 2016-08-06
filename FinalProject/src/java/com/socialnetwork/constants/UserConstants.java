@@ -18,5 +18,11 @@ public class UserConstants {
      * normal constants
      */
     public static final String USER_DETAILS = "USER_DETAILS";
+    public static final String VERIFY_EMAIL = "VERIFYEMAIL";
+    
+    /**
+     * 
+     */
+    public static final String MAILCONTENT = "MAILCONTENT";
     
 }

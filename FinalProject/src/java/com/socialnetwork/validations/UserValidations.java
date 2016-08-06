@@ -5,9 +5,11 @@
  */
 package com.socialnetwork.validations;
 
+import com.socialnetwork.email.EmailVerification;
 import com.socialnetwork.vo.UserDetails;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -17,27 +19,37 @@ import org.springframework.context.annotation.Scope;
 @Scope(value = "singleton")
 public class UserValidations {
 
+    
+    @Autowired
+    EmailVerification emailVerification;
+    
     private UserValidations() {
 
     }
 
     public boolean isValidaEnteredDetails(UserDetails userDetails) {
         boolean isValidDetails = false;
-        if (userDetails != null) {
-            isValidDetails = isValidUserName(userDetails.getUserName());
-            if (isValidDetails) {
-                isValidDetails = isValidUserName(userDetails.getLastName());
+        try {
+            if (userDetails != null) {
+                emailVerification.sendMail("Harish", "test mail", "kuradaaswini29@gmail.com");
+                isValidDetails = isValidUserName(userDetails.getUserName());
                 if (isValidDetails) {
-                    isValidDetails = isValidMobileNumber(userDetails.getPhoneNumber());
+                    isValidDetails = isValidUserName(userDetails.getLastName());
                     if (isValidDetails) {
-                        isValidDetails = isValidEmailID(userDetails.getUserMailID());
+                        isValidDetails = isValidMobileNumber(userDetails.getPhoneNumber());
                         if (isValidDetails) {
-                            isValidDetails = isValidPassword(userDetails);
+                            isValidDetails = isValidEmailID(userDetails.getUserMailID());
+                            if (isValidDetails) {
+                                isValidDetails = isValidPassword(userDetails);
+                            }
                         }
                     }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        System.out.println("user name  " + userDetails.getLastName()+" =============== "+isValidDetails);
         return isValidDetails;
     }
 

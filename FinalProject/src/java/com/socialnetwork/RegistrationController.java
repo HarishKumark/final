@@ -7,7 +7,9 @@ package com.socialnetwork;
 
 import com.socialnetwork.constants.JSPFileNameConstants;
 import com.socialnetwork.constants.UserConstants;
+import com.socialnetwork.validations.UserValidations;
 import com.socialnetwork.vo.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author NCODEIT
  */
 @Controller
-public class RegisterationController {
+public class RegistrationController {
+
+    @Autowired
+    UserValidations uservalidations;
 
     @RequestMapping(value = JSPFileNameConstants.USER_REGISTRATION_PAGE, method = RequestMethod.GET)
     public String userRegistration(ModelMap map) {
@@ -33,17 +38,17 @@ public class RegisterationController {
         String returnJspName = JSPFileNameConstants.USER_PROFILE;
         System.out.println("came inside of userRegistrationAfterSubmit " + userDetails.getUserName()
                 + " " + userDetails.getUserMailID());
-        
-        
-
-        if (userDetails.getPassword() != null && userDetails.getPhoneNumber() != null
-                && userDetails.getLastName() != null) {
-
+        if (!uservalidations.isValidaEnteredDetails(userDetails)) {
+            returnJspName = JSPFileNameConstants.USER_REGISTRATION_PAGE;
         }
-
         return returnJspName;
     }
-    
-    
+
+    @RequestMapping(value = UserConstants.VERIFY_EMAIL, method = RequestMethod.GET)
+    public String verifyEmail() {
+        String returnJspName = JSPFileNameConstants.USER_PROFILE;
+        System.out.println("came insdie of email verificattion");
+        return returnJspName;
+    }
 
 }

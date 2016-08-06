@@ -33,6 +33,40 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />
     
+    <bean id="uservalidations" class="com.socialnetwork.validations.UserValidations"/>
+    
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="harishece411@gmail.com" />
+        <property name="password" value="09qg1a0411" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="customeMailMessage"
+      class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="from@no-spam.com" />
+        <property name="subject" value="Email Verification Process" />
+        <property name="text">
+            <value>
+		<![CDATA[
+			Hi %s,
+		]]>
+            </value>
+        </property>
+    </bean>
+    
+    
+    <bean id="mailMail" class="com.socialnetwork.email.EmailVerification">
+	<property name="mailSender" ref="mailSender" />
+	<property name="simpleMailMessage" ref="customeMailMessage" />
+</bean>
+
     
     <mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
     <mvc:annotation-driven />

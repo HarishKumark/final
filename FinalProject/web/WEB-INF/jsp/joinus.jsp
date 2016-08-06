@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,26 +36,26 @@
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-user login-icon" aria-hidden="true"></i></span>
                                     <!--<input type="text" class="form-control" placeholder="FirstName" >-->
-                                    <form:input path="userName" id="" class="form-control" placeholder="FirstName"/>
+                                    <form:input path="userName" id="" class="form-control" placeholder="FirstName" maxlength="15"/>
                                 </div><br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-user login-icon" aria-hidden="true"></i></span>
                                     <!--<input type="text" class="form-control" placeholder="LastName" >-->
-                                    <form:input path="lastName" id="" class="form-control" placeholder="LastName"/>
+                                    <form:input path="lastName" id="" class="form-control" placeholder="LastName" maxlength="15"/>
                                 </div><br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-phone login-icon" aria-hidden="true"></i></span>
                                     <!--<input type="text" class="form-control" placeholder="Phone Number" >-->
-                                    <form:input path="phoneNumber" id="" class="form-control" placeholder="Phone Number"/>
+                                    <form:input path="phoneNumber" id="" class="form-control" placeholder="Phone Number" maxlength="10"/>
                                 </div><br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-envelope login-icon" aria-hidden="true"></i></span>
                                     <!--<input type="text" class="form-control" placeholder="Email ID" >-->
-                                     <form:input path="userMailID" id="" class="form-control" placeholder="Email ID"/>
+                                    <form:input path="userMailID" id="" class="form-control" placeholder="Email ID" maxlength="20"/>
                                 </div><br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-lock login-icon" aria-hidden="true"></i></span>
-                                    <form:password path="password" id="" class="form-control" placeholder="password"/>
+                                        <form:password path="password" id="" class="form-control" placeholder="password" maxlength="10"/>
                                 </div><br>
                                 <button class="btn btn-success btn-sm form-control">JOIN US</button>
                             </form:form>
