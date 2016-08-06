@@ -52,9 +52,10 @@ public class EmailVerification {
             System.out.println("frm " + simpleMailMessage.getFrom()
                     + " MAILCONTENT " + MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT));
             helper.setTo(userMailID);
-            helper.setSubject("EMAIL VERIFICATION PROCESS");
+            helper.setSubject("Social Network Account Activation");
             helper.setText(String.format(
-                        simpleMailMessage.getText(), userName, MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT)));
+                        simpleMailMessage.getText(), userName, 
+                    MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT)));
             /**
              * for attaching file, for further use
              */
