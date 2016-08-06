@@ -6,6 +6,8 @@
 package com.socialnetwork.validations;
 
 import com.socialnetwork.vo.UserDetails;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -21,16 +23,20 @@ public class UserValidations {
 
     public boolean isValidaEnteredDetails(UserDetails userDetails) {
         boolean isValidDetails = false;
-
         if (userDetails != null) {
             isValidDetails = isValidUserName(userDetails.getUserName());
             if (isValidDetails) {
                 isValidDetails = isValidUserName(userDetails.getLastName());
                 if (isValidDetails) {
-
+                    isValidDetails = isValidMobileNumber(userDetails.getPhoneNumber());
+                    if (isValidDetails) {
+                        isValidDetails = isValidEmailID(userDetails.getUserMailID());
+                        if (isValidDetails) {
+                            isValidDetails = isValidPassword(userDetails);
+                        }
+                    }
                 }
             }
-
         }
         return isValidDetails;
     }
@@ -48,11 +54,39 @@ public class UserValidations {
         if (mobileNumber == null || mobileNumber.equals("")) {
             isValidMobile = false;
         } else if (!mobileNumber.equals("")) {
-            if(mobileNumber.contains("[a-zA-Z]+")){
-                
+            if (mobileNumber.matches("[0-9]+") && mobileNumber.length() > 10) {
+                isValidMobile = true;
             }
         }
         return isValidMobile;
+    }
+
+    public boolean isValidEmailID(String emailID) {
+        boolean isValidEmailID = false;
+        if (emailID == null || emailID.equals("")) {
+            isValidEmailID = false;
+        } else if (!emailID.equals("")) {
+            String regex = "^(.+)@(.+)$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(emailID);
+            isValidEmailID = matcher.matches();
+        }
+        return isValidEmailID;
+    }
+
+    public boolean isValidPassword(UserDetails userDetails) {
+        boolean isValidPassword = false;
+        if (userDetails.getPassword() == null || userDetails.getPassword().equals("")) {
+            isValidPassword = false;
+        } else if (!userDetails.getPassword().equals("")) {
+            if (userDetails.getPassword().contains(userDetails.getUserName())) {
+                isValidPassword = false;
+            }
+            if (userDetails.getPassword().contains(userDetails.getLastName())) {
+                isValidPassword = false;
+            }
+        }
+        return isValidPassword;
     }
 
 }
