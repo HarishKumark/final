@@ -5,12 +5,15 @@
  */
 package com.socialnetwork.validations;
 
+import com.socialnetwork.constants.UserConstants;
 import com.socialnetwork.email.EmailVerification;
+import com.socialnetwork.readproperties.ErrorMessagesProperties;
 import com.socialnetwork.vo.UserDetails;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.ui.ModelMap;
 
 /**
  *
@@ -19,28 +22,36 @@ import org.springframework.context.annotation.Scope;
 @Scope(value = "singleton")
 public class UserValidations {
 
-    
     @Autowired
     EmailVerification emailVerification;
-    
+//    @Autowired
+//    ErrorMessagesProperties errorMsg;
+
     private UserValidations() {
 
     }
 
-    public boolean isValidaEnteredDetails(UserDetails userDetails) {
+    public boolean isValidaEnteredDetails(UserDetails userDetails, ModelMap model) {
         boolean isValidDetails = false;
         try {
             if (userDetails != null) {
-                emailVerification.sendMail("Harish", "test mail", "kuradaaswini29@gmail.com");
-                isValidDetails = isValidUserName(userDetails.getUserName());
+                isValidDetails = isValidUserName(userDetails.getUserName(), model, UserConstants.INVALID_USER_NAME);
+                System.out.println("in isValidUserName for first " + isValidDetails);
                 if (isValidDetails) {
-                    isValidDetails = isValidUserName(userDetails.getLastName());
+                    isValidDetails = isValidUserName(userDetails.getLastName(), model, UserConstants.INVALID_LAST_NAME);
+                    System.out.println("in isValidUserName for last " + isValidDetails);
                     if (isValidDetails) {
-                        isValidDetails = isValidMobileNumber(userDetails.getPhoneNumber());
+                        isValidDetails = isValidMobileNumber(userDetails.getPhoneNumber(), model);
+                        System.out.println("in isValidMobileNumber " + isValidDetails);
                         if (isValidDetails) {
-                            isValidDetails = isValidEmailID(userDetails.getUserMailID());
+                            isValidDetails = isValidEmailID(userDetails.getUserMailID(), model);
+                            System.out.println("in isValidEmailID " + isValidDetails);
                             if (isValidDetails) {
-                                isValidDetails = isValidPassword(userDetails);
+
+                                emailVerification.sendMail("Harish", "test mail", "khharish2@gmail.com");
+
+                                System.out.println("in isValidUserName " + isValidDetails);
+                                return isValidPassword(userDetails, model);
                             }
                         }
                     }
@@ -49,31 +60,40 @@ public class UserValidations {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("user name  " + userDetails.getLastName()+" =============== "+isValidDetails);
+        System.out.println("user name  " + userDetails.getLastName() + " =============== " + isValidDetails);
         return isValidDetails;
     }
 
-    public boolean isValidUserName(String userName) {
-        boolean isValidUserName = false;
+    public boolean isValidUserName(String userName, ModelMap model, String key) {
+        boolean isValidUserName = true;
         if (userName == null || userName.equals("")) {
             isValidUserName = false;
+        }
+        System.out.println("userName " + userName + " key ::::: " + key
+                + " isValidUserName " + isValidUserName);
+        if (!isValidUserName) {
+            model.addAttribute(UserConstants.ERROR_MSG,
+                    ErrorMessagesProperties.getErrorMessages().get(key));
         }
         return isValidUserName;
     }
 
-    public boolean isValidMobileNumber(String mobileNumber) {
+    public boolean isValidMobileNumber(String mobileNumber, ModelMap model) {
         boolean isValidMobile = false;
         if (mobileNumber == null || mobileNumber.equals("")) {
             isValidMobile = false;
         } else if (!mobileNumber.equals("")) {
-            if (mobileNumber.matches("[0-9]+") && mobileNumber.length() > 10) {
-                isValidMobile = true;
-            }
+            System.out.println(" mobileNumber " + mobileNumber.matches("[0-9]+") + " len " + mobileNumber.length());
+            isValidMobile = mobileNumber.matches("[0-9]+") && mobileNumber.length() >= 10;
+        }
+        if (!isValidMobile) {
+            model.addAttribute(UserConstants.ERROR_MSG,
+                    ErrorMessagesProperties.getErrorMessages().get(UserConstants.INVALID_MOBILE));
         }
         return isValidMobile;
     }
 
-    public boolean isValidEmailID(String emailID) {
+    public boolean isValidEmailID(String emailID, ModelMap model) {
         boolean isValidEmailID = false;
         if (emailID == null || emailID.equals("")) {
             isValidEmailID = false;
@@ -83,11 +103,15 @@ public class UserValidations {
             Matcher matcher = pattern.matcher(emailID);
             isValidEmailID = matcher.matches();
         }
+        if (!isValidEmailID) {
+            model.addAttribute(UserConstants.ERROR_MSG,
+                    ErrorMessagesProperties.getErrorMessages().get(UserConstants.INVALID_EMAILID));
+        }
         return isValidEmailID;
     }
 
-    public boolean isValidPassword(UserDetails userDetails) {
-        boolean isValidPassword = false;
+    public boolean isValidPassword(UserDetails userDetails, ModelMap model) {
+        boolean isValidPassword = true;
         if (userDetails.getPassword() == null || userDetails.getPassword().equals("")) {
             isValidPassword = false;
         } else if (!userDetails.getPassword().equals("")) {
@@ -97,6 +121,10 @@ public class UserValidations {
             if (userDetails.getPassword().contains(userDetails.getLastName())) {
                 isValidPassword = false;
             }
+        }
+        if (!isValidPassword) {
+            model.addAttribute(UserConstants.ERROR_MSG,
+                    ErrorMessagesProperties.getErrorMessages().get(UserConstants.INVALID_PASSWORD));
         }
         return isValidPassword;
     }

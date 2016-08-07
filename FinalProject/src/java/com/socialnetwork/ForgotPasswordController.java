@@ -7,6 +7,7 @@ package com.socialnetwork;
 
 import com.socialnetwork.constants.JSPFileNameConstants;
 import com.socialnetwork.constants.UserConstants;
+import com.socialnetwork.email.EmailVerification;
 import com.socialnetwork.vo.UserDetails;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +18,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author NCODEIT
+ * @author lenovo
  */
 @Controller
-public class LoginController {
+public class ForgotPasswordController {
 
     @Autowired
     UserDetails userDetails;
+    @Autowired
+    EmailVerification emailVerification;
 
-    @RequestMapping(value = UserConstants.USER_LOGIN_DETAILS_AFTER_SUBMIT, method = RequestMethod.GET)
-    public String userRegistration(ModelMap map, UserDetails userDetails, HttpServletRequest servletRequest) {
-        String returnJspName = JSPFileNameConstants.USER_LOGIN_PAGE;
+    @RequestMapping(value = UserConstants.FORGOT_PASSWORD, method = RequestMethod.GET)
+    public String forgotPassword(ModelMap map, UserDetails userDetails, HttpServletRequest servletRequest) {
+
+        System.out.println("it came here in get");
+        String returnJspName = JSPFileNameConstants.FORGOT_PASSWORD_PAGE;
         map.addAttribute(UserConstants.LOGIN_DETAILS, new UserDetails());
         return returnJspName;
     }
 
-    @RequestMapping(value = UserConstants.USER_LOGIN_DETAILS_AFTER_SUBMIT, method = RequestMethod.POST)
+    @RequestMapping(value = UserConstants.FORGOT_PASSWORD, method = RequestMethod.POST)
 //    public String userRegistrationAfterSubmit(@ModelAttribute(UserConstants.LOGIN_DETAILS) UserDetails userDetails) {
-    public String userRegistrationAfterSubmit(ModelMap map, UserDetails userDetails, HttpServletRequest servletRequest) {
-        String returnJspName = JSPFileNameConstants.USER_LOGIN_PAGE;
-        System.out.println("came inside of userRegistrationAfterSubmit " + userDetails.getUserName()
-                + " " + userDetails.getPassword());
+    public String forgotPasswordSubmission(ModelMap map, UserDetails userDetails, HttpServletRequest servletRequest) {
+        System.out.println("it came here in post");
+        String returnJspName = JSPFileNameConstants.FORGOT_PASSWORD_PAGE;
+        System.out.println("came inside of Frogotpassword; emaildid::  " + userDetails.getUserMailID());
+
+        emailVerification.sendMail("", UserConstants.FORGOTPASSWORDCONTENT, "hemanth8926@gmail.com");
+//        emailVerification.sendMail("Hi,", "", "hemanth8926@gmail.com");
         map.addAttribute(UserConstants.LOGIN_DETAILS, new UserDetails());
 
         return returnJspName;

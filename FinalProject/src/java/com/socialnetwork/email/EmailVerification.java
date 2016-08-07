@@ -9,7 +9,6 @@ import com.socialnetwork.constants.UserConstants;
 import com.socialnetwork.readproperties.MailProperties;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
@@ -25,7 +24,6 @@ public class EmailVerification {
 
 //    @Autowired
 //    MailProperties mailProperties;
-
     private JavaMailSender mailSender;
     private SimpleMailMessage simpleMailMessage;
 
@@ -43,26 +41,32 @@ public class EmailVerification {
 
     public boolean sendMail(String userName, String content, String userMailID) {
         boolean isEmailSent = false;
+        String subject = "Social Network Account Activation";
         MimeMessage message = mailSender.createMimeMessage();
-        System.out.println("dear " + userName + " content " + content + " userMailID " + userMailID);
+        System.out.println("dear " + userName + " content " + content
+                + " userMailID " + userMailID + " : "
+                + MailProperties.getMailContentInformation().get(content));
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            message.setContent(MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT), "text/html");
+            message.setContent(MailProperties.getMailContentInformation().get(content), "text/html");
             helper.setFrom(simpleMailMessage.getFrom());
-            System.out.println("frm " + simpleMailMessage.getFrom()
-                    + " MAILCONTENT " + MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT));
+//            System.out.println("frm " + simpleMailMessage.getFrom()
+//                    + " MAILCONTENT " + MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT));
+
+            if (content.equalsIgnoreCase(UserConstants.FORGOTPASSWORDCONTENT)) {
+                System.out.println("userName: " + userName);
+                subject = "Forgot password link";
+            }
             helper.setTo(userMailID);
-            helper.setSubject("Social Network Account Activation");
-            helper.setText(String.format(
-                        simpleMailMessage.getText(), userName, 
-                    MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT)));
+            helper.setSubject(subject);
+            helper.setText(String.format(simpleMailMessage.getText(), userName, MailProperties.getMailContentInformation().get(content)));
+
             /**
              * for attaching file, for further use
              */
 //
 //            FileSystemResource file = new FileSystemResource("C:\\log.txt");
 //            helper.addAttachment(file.getFilename(), file);
-
         } catch (MessagingException e) {
             isEmailSent = false;
             throw new MailParseException(e);

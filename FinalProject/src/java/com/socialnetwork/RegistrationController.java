@@ -34,13 +34,16 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = UserConstants.USER_DETAILS_AFTER_SUBMIT, method = RequestMethod.POST)
-    public String userRegistrationAfterSubmit(@ModelAttribute(UserConstants.USER_DETAILS) UserDetails userDetails) {
-        String returnJspName = JSPFileNameConstants.USER_PROFILE;
+    public String userRegistrationAfterSubmit(@ModelAttribute(UserConstants.USER_DETAILS) UserDetails userDetails,
+            ModelMap model) {
+        String returnJspName = JSPFileNameConstants.USER_REGISTRATION_PAGE;
         System.out.println("came inside of userRegistrationAfterSubmit " + userDetails.getUserName()
                 + " " + userDetails.getUserMailID());
-        if (!uservalidations.isValidaEnteredDetails(userDetails)) {
-            returnJspName = JSPFileNameConstants.USER_REGISTRATION_PAGE;
+        if (uservalidations.isValidaEnteredDetails(userDetails, model)) {
+            returnJspName = JSPFileNameConstants.USER_PROFILE;
         }
+//        System.out.println("values----------- "+model.get(UserConstants.ERROR_MSG));
+//        model.addAttribute(UserConstants.ERROR_MSG, model.get(UserConstants.ERROR_MSG));
         return returnJspName;
     }
 

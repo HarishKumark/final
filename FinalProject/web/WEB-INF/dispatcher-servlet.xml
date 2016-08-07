@@ -34,6 +34,8 @@
           p:viewName="index" />
     
     <bean id="uservalidations" class="com.socialnetwork.validations.UserValidations"/>
+    <bean id="UserDetails" class="com.socialnetwork.vo.UserDetails"/>
+    <bean id="PostAJobDetails" class="com.socialnetwork.vo.PostAJobDetails"/>
     
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />
@@ -49,7 +51,7 @@
     </bean>
 
     <bean id="customeMailMessage"
-      class="org.springframework.mail.SimpleMailMessage">
+          class="org.springframework.mail.SimpleMailMessage">
         <property name="from" value="from@no-spam.com" />
         <property name="subject" value="Email Verification Process" />
         <property name="text">
@@ -61,14 +63,16 @@
         </property>
     </bean>
     
+    <bean id="errorMsg" class="com.socialnetwork.readproperties.ErrorMessagesProperties"></bean>
     
     <bean id="mailMail" class="com.socialnetwork.email.EmailVerification">
-	<property name="mailSender" ref="mailSender" />
-	<property name="simpleMailMessage" ref="customeMailMessage" />
-</bean>
+        <property name="mailSender" ref="mailSender" />
+        <property name="simpleMailMessage" ref="customeMailMessage" />
+    </bean>
 
     
     <mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
+    <mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
     <mvc:annotation-driven />
 
 </beans>
