@@ -26,7 +26,7 @@ public class PostAJobController {
     @Autowired
     PostAJobDetails postAJobDetails;
 
-    @RequestMapping(value = UserConstants.POSTAJOB_SUBMIT, method = RequestMethod.GET)
+    @RequestMapping(value = JSPFileNameConstants.POSTAJOB_SUBMIT, method = RequestMethod.GET)
     public String postAJobRequest(ModelMap map, UserDetails userDetails, HttpServletRequest servletRequest) {
 
         System.out.println("it came in request Post a job!!!");
@@ -35,7 +35,7 @@ public class PostAJobController {
         return returnJspName;
     }
 
-    @RequestMapping(value = UserConstants.POSTAJOB_SUBMIT, method = RequestMethod.POST)
+    @RequestMapping(value = JSPFileNameConstants.POSTAJOB_SUBMIT, method = RequestMethod.POST)
     public String postAJobSending(ModelMap map, PostAJobDetails postAJobDetails, HttpServletRequest servletRequest) {
 
         System.out.println("it came in Post a job!!!");

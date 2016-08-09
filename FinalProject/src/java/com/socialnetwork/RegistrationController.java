@@ -9,6 +9,7 @@ import com.socialnetwork.constants.JSPFileNameConstants;
 import com.socialnetwork.constants.UserConstants;
 import com.socialnetwork.validations.UserValidations;
 import com.socialnetwork.vo.UserDetails;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,13 +34,14 @@ public class RegistrationController {
         return returnJspName;
     }
 
-    @RequestMapping(value = UserConstants.USER_DETAILS_AFTER_SUBMIT, method = RequestMethod.POST)
+    @RequestMapping(value = JSPFileNameConstants.USER_DETAILS_AFTER_SUBMIT, method = RequestMethod.POST)
     public String userRegistrationAfterSubmit(@ModelAttribute(UserConstants.USER_DETAILS) UserDetails userDetails,
-            ModelMap model) {
+                                              ModelMap model, HttpServletRequest servletRequest) {
         String returnJspName = JSPFileNameConstants.USER_REGISTRATION_PAGE;
         System.out.println("came inside of userRegistrationAfterSubmit " + userDetails.getUserName()
                 + " " + userDetails.getUserMailID());
         if (uservalidations.isValidaEnteredDetails(userDetails, model)) {
+            servletRequest.getSession().setAttribute(UserConstants.USER_LOGGED_IN, UserConstants.TRUE);
             returnJspName = JSPFileNameConstants.USER_PROFILE;
         }
 //        System.out.println("values----------- "+model.get(UserConstants.ERROR_MSG));
@@ -53,5 +55,4 @@ public class RegistrationController {
         System.out.println("came insdie of email verificattion");
         return returnJspName;
     }
-
 }

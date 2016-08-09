@@ -11,13 +11,9 @@ package com.socialnetwork.constants;
  */
 public class UserConstants {
 
-    /**
-     * form submit values
-     */
-    public static final String USER_DETAILS_AFTER_SUBMIT = "userregistration";
-    public static final String USER_LOGIN_DETAILS_AFTER_SUBMIT = "userLogin";
-    public static final String FORGOT_PASSWORD = "forgotPassword";
-    public static final String POSTAJOB_SUBMIT = "postaJobSubmission";
+    public static final String TRUE = "TRUE";
+    public static final String CAME_FROM = "REGISTRATION";
+
     /**
      * normal constants
      */
@@ -38,5 +34,16 @@ public class UserConstants {
     public static final String INVALID_MOBILE = "INVALID_MOBILE";
     public static final String INVALID_PASSWORD = "INVALID_PASSWORD";
     public static final String ERROR_MSG = "ERROR_MSG";
+
+    public static final String HOST = "HOST";
+    public static final String PORT = "PORT";
+    public static final String SENDING_MAIL_ID = "SENDING_MAIL_ID";
+    public static final String PASSWORD = "PASSWORD";
+    public static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+    public static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+    
+    public static final String USER_LOGGED_IN = "USER_LOGGED_IN";
+    
+    
 
 }

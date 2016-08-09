@@ -57,11 +57,12 @@
                         <div class="panel panel-default log">
                             <div class="panel-body">
                                 <h3>MEMBER LOGIN</h3>
-                                <form:form method="post" action="userLogin" commandName="LOGIN_DETAILS">
+                                <form:form method="post" action="userLogin" commandName="USER_DETAILS">
+                                     <div>${ERROR_MSG}</div>
                                     <div class="input-group">
                                         <span class="input-group-addon" ><i class="fa fa-user login-icon" aria-hidden="true"></i></span>
                                         <!--<input type="text" class="form-control" placeholder="Email ID,Mobile No" >-->
-                                        <form:input path="userName" id="" class="form-control" placeholder="FirstName"/>
+                                        <form:input path="userMailID" id="" class="form-control" placeholder="Email ID"/>
                                     </div><br>
                                     <div class="input-group">
                                         <span class="input-group-addon" ><i class="fa fa-lock login-icon" aria-hidden="true"></i></span>

@@ -48,10 +48,9 @@ public class UserValidations {
                             System.out.println("in isValidEmailID " + isValidDetails);
                             if (isValidDetails) {
 
-                                emailVerification.sendMail("Harish", "test mail", "khharish2@gmail.com");
-
+//                                emailVerification.sendMail("Harish", UserConstants.MAILCONTENT, "khharish2@gmail.com");
                                 System.out.println("in isValidUserName " + isValidDetails);
-                                return isValidPassword(userDetails, model);
+                                return isValidPassword(userDetails, model, UserConstants.CAME_FROM);
                             }
                         }
                     }
@@ -110,15 +109,20 @@ public class UserValidations {
         return isValidEmailID;
     }
 
-    public boolean isValidPassword(UserDetails userDetails, ModelMap model) {
+    public boolean isValidPassword(UserDetails userDetails, ModelMap model, String cameFrom) {
         boolean isValidPassword = true;
         if (userDetails.getPassword() == null || userDetails.getPassword().equals("")) {
             isValidPassword = false;
         } else if (!userDetails.getPassword().equals("")) {
-            if (userDetails.getPassword().contains(userDetails.getUserName())) {
-                isValidPassword = false;
+            if (cameFrom != null && cameFrom.equalsIgnoreCase(UserConstants.CAME_FROM)) {
+                if (userDetails.getPassword().contains(userDetails.getUserName())) {
+                    isValidPassword = false;
+                }
+                if (userDetails.getPassword().contains(userDetails.getLastName())) {
+                    isValidPassword = false;
+                }
             }
-            if (userDetails.getPassword().contains(userDetails.getLastName())) {
+            if (userDetails.getPassword().length() > 8) {
                 isValidPassword = false;
             }
         }

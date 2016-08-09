@@ -28,7 +28,7 @@ public class ForgotPasswordController {
     @Autowired
     EmailVerification emailVerification;
 
-    @RequestMapping(value = UserConstants.FORGOT_PASSWORD, method = RequestMethod.GET)
+    @RequestMapping(value = JSPFileNameConstants.FORGOT_PASSWORD, method = RequestMethod.GET)
     public String forgotPassword(ModelMap map, UserDetails userDetails, HttpServletRequest servletRequest) {
 
         System.out.println("it came here in get");
@@ -37,7 +37,7 @@ public class ForgotPasswordController {
         return returnJspName;
     }
 
-    @RequestMapping(value = UserConstants.FORGOT_PASSWORD, method = RequestMethod.POST)
+    @RequestMapping(value = JSPFileNameConstants.FORGOT_PASSWORD, method = RequestMethod.POST)
 //    public String userRegistrationAfterSubmit(@ModelAttribute(UserConstants.LOGIN_DETAILS) UserDetails userDetails) {
     public String forgotPasswordSubmission(ModelMap map, UserDetails userDetails, HttpServletRequest servletRequest) {
         System.out.println("it came here in post");

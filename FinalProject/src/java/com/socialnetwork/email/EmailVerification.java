@@ -9,6 +9,7 @@ import com.socialnetwork.constants.UserConstants;
 import com.socialnetwork.readproperties.MailProperties;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,6 +25,7 @@ public class EmailVerification {
 
 //    @Autowired
 //    MailProperties mailProperties;
+
     private JavaMailSender mailSender;
     private SimpleMailMessage simpleMailMessage;
 
@@ -45,10 +47,10 @@ public class EmailVerification {
         MimeMessage message = mailSender.createMimeMessage();
         System.out.println("dear " + userName + " content " + content
                 + " userMailID " + userMailID + " : "
-                + MailProperties.getMailContentInformation().get(content));
+                + MailProperties.mailRelatedProps.get(content));
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            message.setContent(MailProperties.getMailContentInformation().get(content), "text/html");
+            message.setContent(MailProperties.mailRelatedProps.get(content), "text/html");
             helper.setFrom(simpleMailMessage.getFrom());
 //            System.out.println("frm " + simpleMailMessage.getFrom()
 //                    + " MAILCONTENT " + MailProperties.getMailContentInformation().get(UserConstants.MAILCONTENT));
@@ -59,7 +61,7 @@ public class EmailVerification {
             }
             helper.setTo(userMailID);
             helper.setSubject(subject);
-            helper.setText(String.format(simpleMailMessage.getText(), userName, MailProperties.getMailContentInformation().get(content)));
+            helper.setText(String.format(simpleMailMessage.getText(), userName, MailProperties.mailRelatedProps.get(content)));
 
             /**
              * for attaching file, for further use
