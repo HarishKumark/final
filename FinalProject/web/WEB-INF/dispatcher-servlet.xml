@@ -70,8 +70,10 @@
         <property name="simpleMailMessage" ref="customeMailMessage" />
     </bean>
 
-    <mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
-    <mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
+    <!--<mvc:resources mapping="/images/**" location="/WEB-INF/images/" />-->
+    <!--<mvc:resources mapping="/css/**" location="/WEB-INF/css/" />-->
+    <!--<mvc:resources mapping="/scripts/**" location="/WEB-INF/scripts/" />-->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:annotation-driven />
 
 </beans>

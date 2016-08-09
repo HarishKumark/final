@@ -57,22 +57,22 @@ public class SessionFilter implements Filter {
             System.out.println("url  in filter " + url + " urlList "
                     + urlList + " allowedRequest " + allowedRequest + " urlList.contains(url) " + urlList.contains(url));
 
-            if (allowedRequest) {
+//            if (allowedRequest) {
                 HttpSession session = httpRequest.getSession();
-                if (null == session.getAttribute(UserConstants.USER_LOGGED_IN)) {
-//                    session.removeAttribute(UserConstants.USER_LOGGED_IN);
-//                    httpResponse.sendRedirect(JSPFileNameConstants.LOGOUT);
-//                    httpResponse.sendRedirect("logout_new.jsp");
-//                    httpResponse.sendRedirect(JSPFileNameConstants.LOGOUT);
-                    RequestDispatcher dd = request.getRequestDispatcher(JSPFileNameConstants.LOGOUT);
-                    dd.forward(request, response);
-                    return;
-                } else {
-                    System.out.println("sessionis not null");
-                }
-            } else {
+//                if (null == session.getAttribute(UserConstants.USER_LOGGED_IN)) {
+////                    session.removeAttribute(UserConstants.USER_LOGGED_IN);
+////                    httpResponse.sendRedirect(JSPFileNameConstants.LOGOUT);
+////                    httpResponse.sendRedirect("logout_new.jsp");
+////                    httpResponse.sendRedirect(JSPFileNameConstants.LOGOUT);
+//                    RequestDispatcher dd = request.getRequestDispatcher(JSPFileNameConstants.LOGOUT);
+//                    dd.forward(request, response);
+//                    return;
+//                } else {
+//                    System.out.println("sessionis not null");
+//                }
+//            } else {
                 chain.doFilter(httpRequest, httpResponse);
-            }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }

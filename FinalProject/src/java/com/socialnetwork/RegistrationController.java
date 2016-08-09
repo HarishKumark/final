@@ -30,6 +30,7 @@ public class RegistrationController {
     @RequestMapping(value = JSPFileNameConstants.USER_REGISTRATION_PAGE, method = RequestMethod.GET)
     public String userRegistration(ModelMap map) {
         String returnJspName = JSPFileNameConstants.USER_REGISTRATION_PAGE;
+        System.out.println("came isdie of userRegistration in get");
         map.addAttribute(UserConstants.USER_DETAILS, new UserDetails());
         return returnJspName;
     }
