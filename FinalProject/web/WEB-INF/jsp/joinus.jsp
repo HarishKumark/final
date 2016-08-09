@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
         <style>
             .borderClass{
-                border:1px solid red;
+                border:1px solid black;
             }
         </style>
     </head>
@@ -54,34 +54,34 @@
                                     <!--<input type="text" class="form-control" placeholder="FirstName" >-->
                                     <form:input path="userName" id="userFirstNameID" class="form-control" placeholder="FirstName" maxlength="15"/>
                                 </div>
-                                <span id="firstNameErrorMsg" style="color: red;padding-left: 320px;"></span>
+                                <span id="firstNameErrorMsg" style="color: black;padding-left: 320px;"></span>
                                 <br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-user login-icon" aria-hidden="true"></i></span>
                                     <!--<input type="text" class="form-control" placeholder="LastName" >-->
                                     <form:input path="lastName" id="userLastNameID" class="form-control" placeholder="LastName" maxlength="15"/>
                                 </div>
-                                 <span id="lastNameErrorMsg" style="color: red;padding-left: 320px;"></span>
+                                 <span id="lastNameErrorMsg" style="color: black;padding-left: 320px;"></span>
                                  <br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-phone login-icon" aria-hidden="true"></i></span>
                                     <!--<input type="text" class="form-control" placeholder="Phone Number" >-->
                                     <form:input path="phoneNumber" id="userMbleNumID" class="form-control" placeholder="Phone Number" maxlength="10" onkeypress="return isNumber(event);"/>
                                 </div>
-                                 <span id="mbleNumErrorMsg" style="color: red;padding-left: 320px;"></span>
+                                 <span id="mbleNumErrorMsg" style="color: black;padding-left: 320px;"></span>
                                  <br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-envelope login-icon" aria-hidden="true"></i></span>
                                     <!--<input type="text" class="form-control" placeholder="Email ID" >-->
                                     <form:input path="userMailID" id="userEmailID" class="form-control" placeholder="Email ID" maxlength="30"/>
                                 </div>
-                                <span id="userEmailIDErrorMsg" style="color: red;padding-left: 320px;"></span>
+                                <span id="userEmailIDErrorMsg" style="color: black;padding-left: 320px;"></span>
                                 <br>
                                 <div class="input-group">
                                     <span class="input-group-addon" ><i class="fa fa-lock login-icon" aria-hidden="true"></i></span>
                                         <form:password path="password" id="userPwdID" class="form-control" placeholder="password" maxlength="10"/>
                                 </div>
-                                <span id="userPwdErrorMsg" style="color: red;padding-left: 320px;"></span>
+                                <span id="userPwdErrorMsg" style="color: black;padding-left: 320px;"></span>
                                 <br>
                                 <button class="btn btn-success btn-sm form-control" id="joinBtn">JOIN US</button>
                             </form:form>
